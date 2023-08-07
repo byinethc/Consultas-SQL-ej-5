@@ -1,0 +1,89 @@
+1. Selecciona las columnas film_id y title de la tabla film.
+
+select film_id, title from film
+
+2. Selecciona 5 filas de la tabla film, obteniendo todas las columnas.
+
+select * from film limit 5
+
+3. Selecciona filas de la tabla film donde film_id sea menor que 4.
+
+select * from film where film_id<=4
+
+4. Selecciona filas de la tabla film donde el rating sea PG o G.
+
+select film_id, title, rating from film where rating = 'PG' or rating ='G'
+
+5. Selecciona filas de la tabla actor donde el nombre sea Angela, Angelina o Audrey usando IN.
+
+select * from actor where first_name in ('Angela','Angelina','Audrey')
+
+6. Obtén una lista de actores con el nombre Julia.
+
+select * from actor where first_name in ('Julia')
+select * from actor where first_name ='Julia'
+
+7. Obtén una lista de actores con los nombres Chris, Cameron o Cuba.
+
+select * from actor where first_name in ('Chris', 'Cameron', 'Cuba')
+
+
+8. Selecciona la fila de la tabla customer para el cliente con el nombre Jamie Rice.
+
+select * from Customer where first_name in ('Jamie') and last_name in ('Rice')
+
+9. Selecciona el monto y la fecha de pago de la tabla payment donde el monto pagado sea menor a $1.
+
+select amount, payment_date from payment where amount <1
+
+10. ¿Cuáles son las diferentes duraciones de alquiler permitidas por la tienda?
+
+
+
+11. Ordena las filas en la tabla city por country_id y luego por city.
+
+select * from  city order by country_id 
+select * from  city order by city desc
+
+12. ¿Cuáles son los ID de los últimos 3 clientes que devolvieron un alquiler?
+
+select * from customer order by customer_id desc limit 3
+
+13. ¿Cuántas películas tienen clasificación NC-17? ¿Cuántas tienen clasificación PG o PG-13?
+
+SELECT rating, COUNT(rating) FROM film
+WHERE rating='PG' OR rating = 'PG-13' OR rating='NC-17'
+GROUP BY rating;
+
+14. ¿Cuántos clientes diferentes tienen registros en la tabla rental?
+
+SELECT COUNT(DISTINCT customer_id) FROM rental
+
+15. ¿Hay algún cliente con el mismo apellido?
+
+SELECT last_name, COUNT(*) FROM customer GROUP BY last_name HAVING COUNT(*) > 1
+
+16. ¿Qué película (id) tiene la mayor cantidad de actores?
+
+SELECT film_id, COUNT(actor_id) AS actor_count 
+FROM film_actor GROUP BY film_id 
+ORDER BY actor_count DESC LIMIT 1
+
+17. ¿Qué actor (id) aparece en la mayor cantidad de películas?
+
+SELECT film_id,  count (film_id) from film_actor  
+group by film_id order by count desc
+
+18. Cuenta el número de ciudades para cada country_id en la tabla city. Ordena los resultados por count(*).
+
+SELECT COUNT(DISTINCT country_id) FROM city
+
+19. ¿Cuál es la tarifa de alquiler promedio de las películas? ¿Puedes redondear el resultado a 2 decimales?
+
+SELECT ROUND(AVG(rental_rate), 2) AS average_rental_rate FROM film
+
+20. Selecciona los 10 actores que tienen los nombres más largos (nombre y apellido combinados).
+
+SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM actor ORDER BY LENGTH(CONCAT(first_name, last_name)) DESC LIMIT 10;
+
+
